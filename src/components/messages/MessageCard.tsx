@@ -9,7 +9,7 @@ type Props = {
 
 const MessageCard: React.FC<Props> = ({message}: Props) => {
     const theme = useTheme();
-    const {removeMessage} = useMessages();
+    const {dispatch} = useMessages();
     let backgroundColor = theme.palette.info.main;
     switch (message.priority){
         case Priority.Error:
@@ -32,7 +32,7 @@ const MessageCard: React.FC<Props> = ({message}: Props) => {
                     <Typography variant="subtitle1">{message.message}</Typography>
                     <Stack direction="row" justifyContent="flex-end">
                         <Button size="large" sx={{textTransform: 'none', color: 'inherit', fontWeight:"500"}}
-                                onClick={() => removeMessage(message)}>
+                                onClick={() => dispatch({type:'remove-message', message: message})}>
                             Clear
                         </Button>
                     </Stack>

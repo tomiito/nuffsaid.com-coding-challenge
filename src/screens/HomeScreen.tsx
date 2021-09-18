@@ -1,29 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Button, Container, Snackbar, SnackbarContent, Stack} from "@mui/material";
 import MessagePanel from "../components/messages/MessagePanel";
 import useMessages from "../hooks/useMessages";
-import {Message} from "../Api";
 import MessageCard from "../components/messages/MessageCard";
 
 const HomeScreen: React.FC<{}> = () => {
-    const {started, errorMessages, warnMessages, infoMessages, clearAllMessages, toggleMessagesStream} = useMessages();
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-
-    const [snackbarMessage, setSnackbarMessage] = useState<Message | null>(null);
-
-    useEffect(() => {
-        if (errorMessages.length > 0) {
-            setSnackbarOpen(true);
-            setSnackbarMessage(errorMessages[0]);
-        }
-    },[errorMessages]);
+    const {state, dispatch} = useMessages();
+    const {started, snackbarOpen, snackbarMessage, errorMessages, warnMessages, infoMessages} = state;
 
     return (<>
         <Stack direction="row" justifyContent="center" marginBottom="4em">
-            <Button variant="contained" sx={{marginRight: "0.3em"}} size="large" onClick={toggleMessagesStream}>
-                { started ? 'STOP' : 'START' }
+            <Button variant="contained" sx={{marginRight: "0.3em"}} size="large"
+                    onClick={() => dispatch({type: 'toggle-messages-stream'})}>
+                {started ? 'STOP' : 'START'}
             </Button>
-            <Button variant="contained" size="large" onClick={clearAllMessages}>
+            <Button variant="contained" size="large" onClick={() => dispatch({type: 'clear-all-messages'})}>
                 CLEAR
             </Button>
         </Stack>
@@ -35,15 +26,16 @@ const HomeScreen: React.FC<{}> = () => {
             </Stack>
         </Container>
         <Snackbar
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
             key={snackbarMessage ? snackbarMessage.message : undefined}
             open={snackbarOpen}
             autoHideDuration={2000}
-            TransitionProps={{ onExited: () => setSnackbarMessage(null) }}
-            onClose={() => setSnackbarOpen(false)}
+            disableWindowBlurListener={true}
+            // TransitionProps={{onExited: () => setSnackbarMessage(null)}}
+            onClose={() => dispatch({type: 'close-snackbar'})}
 
         >
-            <SnackbarContent message={<>{snackbarMessage && <MessageCard message={snackbarMessage} />}</>} />
+            <SnackbarContent message={<>{snackbarMessage && <MessageCard message={snackbarMessage}/>}</>}/>
         </Snackbar>
     </>);
 }
