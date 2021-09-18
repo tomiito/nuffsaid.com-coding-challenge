@@ -2,7 +2,7 @@ import random from 'lodash/random';
 import faker from 'faker';
 import { Observable } from 'rxjs';
 
-enum Priority {
+export enum Priority {
   Error,
   Warn,
   Info,
