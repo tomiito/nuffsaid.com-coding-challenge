@@ -27,7 +27,7 @@ const MessageCard: React.FC<Props> = ({message}: Props) => {
 
     return (
         <>
-            <Paper sx={{backgroundColor: backgroundColor, marginBottom: 2}}>
+            <Paper sx={{backgroundColor: backgroundColor, maxWidth: '370px', width: '100%'}}>
                 <Stack padding={2}>
                     <Typography variant="subtitle1">{message.message}</Typography>
                     <Stack direction="row" justifyContent="flex-end">

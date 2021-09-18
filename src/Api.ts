@@ -1,6 +1,6 @@
 import random from 'lodash/random';
 import faker from 'faker';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
 export enum Priority {
   Error,

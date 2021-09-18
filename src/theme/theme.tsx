@@ -36,6 +36,18 @@ const theme = createTheme({
                     fontWeight: 600
                 }
             }
+        },
+        MuiSnackbarContent: {
+            styleOverrides: {
+                root: {
+                    width: '100%',
+                    padding: 0,
+                    '& .MuiSnackbarContent-message': {
+                        width: '100%',
+                        padding: 0 ,
+                    }
+                },
+            }
         }
     }
 });
