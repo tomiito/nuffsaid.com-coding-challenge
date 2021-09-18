@@ -31,9 +31,7 @@ const HomeScreen: React.FC<{}> = () => {
             open={snackbarOpen}
             autoHideDuration={2000}
             disableWindowBlurListener={true}
-            // TransitionProps={{onExited: () => setSnackbarMessage(null)}}
             onClose={() => dispatch({type: 'close-snackbar'})}
-
         >
             <SnackbarContent message={<>{snackbarMessage && <MessageCard message={snackbarMessage}/>}</>}/>
         </Snackbar>

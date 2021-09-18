@@ -1,8 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import App from '../App';
 
 test('renders learn react link', () => {
   const comp = render(<App />);
   expect(comp).toBeTruthy();
+  expect(screen.getByText("nuffsaid.com Coding Challenge")).toBeInTheDocument();
 });
