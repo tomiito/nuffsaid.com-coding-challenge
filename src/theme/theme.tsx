@@ -1,5 +1,12 @@
 import {createTheme} from "@mui/material";
 
+declare module '@mui/material/Paper' {
+    interface PaperPropsVariantOverrides {
+        message: true;
+        color: string;
+    }
+}
+
 const theme = createTheme({
     typography: {
         fontFamily: "Times",
@@ -27,6 +34,35 @@ const theme = createTheme({
         error: { main: '#F56236' },
     },
     components: {
+        MuiPaper: {
+          variants: [
+              {
+                  props: {variant: 'message'},
+                  style: {
+                      maxWidth: '370px',
+                      width: '100%'
+                  },
+              },
+              {
+                  props: {variant: 'message', color: 'priority_2'},
+                  style: {
+                      backgroundColor: '#88FCA3',
+                  },
+              },
+              {
+                  props: {variant: 'message', color: 'priority_1'},
+                  style: {
+                      backgroundColor: '#FCE788',
+                  },
+              },
+              {
+                  props: {variant: 'message', color: 'priority_0'},
+                  style: {
+                      backgroundColor: '#F56236',
+                  },
+              },
+          ]
+        },
         MuiButton: {
             styleOverrides: {
                 root: {

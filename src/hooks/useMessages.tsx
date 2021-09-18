@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {useEffect, useReducer, useState} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import generateMessage, {Message, Priority} from "../Api";
 import _ from "lodash";
 
@@ -11,7 +11,7 @@ type Action = { type: 'add-message', message: Message }
     | { type: 'close-snackbar' };
 type Dispatch = (action: Action) => void
 
-export interface State {
+export interface MessagesState {
     started: boolean;
     snackbarOpen: boolean;
     snackbarMessage: Message | null;
@@ -20,7 +20,7 @@ export interface State {
     warnMessages: Message[];
 }
 
-const initialState: State = {
+export const initialMessagesState: MessagesState = {
     started: true,
     snackbarOpen: false,
     snackbarMessage: null,
@@ -29,11 +29,11 @@ const initialState: State = {
     warnMessages: [],
 }
 
-export const MessagesContext = React.createContext<{ state: State; dispatch: Dispatch } | undefined>(undefined);
+export const MessagesContext = React.createContext<{ state: MessagesState; dispatch: Dispatch } | undefined>(undefined);
 type Props = {
     children: React.ReactNode
 }
-function messagesReducer(state: State, action: Action) {
+export function messagesReducer(state: MessagesState, action: Action) {
     switch (action.type) {
         case 'add-message':
             switch (action.message.priority) {
@@ -94,7 +94,7 @@ function messagesReducer(state: State, action: Action) {
 }
 
 export const MessagesProvider = ({children}: Props) => {
-    const [state, dispatch] = useReducer(messagesReducer, initialState);
+    const [state, dispatch] = useReducer(messagesReducer, initialMessagesState);
     const {started} = state;
 
     useEffect(() => {

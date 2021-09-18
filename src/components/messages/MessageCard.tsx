@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button, Paper, Stack, Typography, useTheme} from "@mui/material";
-import {Message, Priority} from "../../Api";
+import {Button, Paper, Stack, Typography} from "@mui/material";
+import {Message} from "../../Api";
 import useMessages from "../../hooks/useMessages";
 
 type Props = {
@@ -8,26 +8,10 @@ type Props = {
 }
 
 const MessageCard: React.FC<Props> = ({message}: Props) => {
-    const theme = useTheme();
     const {dispatch} = useMessages();
-    let backgroundColor = theme.palette.info.main;
-    switch (message.priority){
-        case Priority.Error:
-            backgroundColor= theme.palette.error.main;
-            break;
-        case Priority.Warn:
-            backgroundColor= theme.palette.warning.main;
-            break;
-        case Priority.Info:
-            backgroundColor= theme.palette.info.main;
-            break;
-        default:
-            break;
-    }
-
     return (
         <>
-            <Paper sx={{backgroundColor: backgroundColor, maxWidth: '370px', width: '100%'}}>
+            <Paper variant="message" color={`priority_${message.priority}`} data-testid={`message_${message.message}`}>
                 <Stack padding={2}>
                     <Typography variant="subtitle1">{message.message}</Typography>
                     <Stack direction="row" justifyContent="flex-end">
