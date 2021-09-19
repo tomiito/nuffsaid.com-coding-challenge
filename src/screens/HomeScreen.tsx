@@ -33,7 +33,7 @@ const HomeScreen: React.FC<{}> = () => {
             disableWindowBlurListener={true}
             onClose={() => dispatch({type: 'close-snackbar'})}
         >
-            <SnackbarContent message={<>{snackbarMessage && <MessageCard message={snackbarMessage}/>}</>}/>
+            <SnackbarContent data-testid="message-snackbar" message={<>{snackbarMessage && <MessageCard message={snackbarMessage}/>}</>}/>
         </Snackbar>
     </>);
 }

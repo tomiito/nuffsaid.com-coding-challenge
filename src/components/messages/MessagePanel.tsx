@@ -13,8 +13,8 @@ const MessagePanel: React.FC<Props> = ({title, messages}) => {
         <>
             <Stack flexGrow={1} flexBasis="33%">
                 <Typography variant="h2" marginBottom={0}>{title}</Typography>
-                <Typography variant="h3" marginBottom={4}>Count: {messages.length}</Typography>
-                <Stack width="100%" spacing={2}>
+                <Typography variant="h3" marginBottom={4} data-testid={`${title}_count`}>Count: {messages.length}</Typography>
+                <Stack width="100%" spacing={2} data-testid={`${title}_messages`}>
                     {messages.map(m => (
                         <MessageCard key={m.message} message={m} />
                     ))}
