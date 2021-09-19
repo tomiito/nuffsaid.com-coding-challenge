@@ -115,7 +115,6 @@ export const MessagesProvider = ({children}: Props) => {
     //
 
     const value = {state, dispatch};
-    // TODO const value = useMemo(() => [state, dispatch], [state]);
 
     return (
         <MessagesContext.Provider value={value}>
